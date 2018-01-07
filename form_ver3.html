@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="jquery-3.0.0.min.js"></script>
+<link rel="stylesheet" href="skeleton.css">
+<script>
+$(function(){
+        //ajaxでテキストファイルを読込
+        $.ajax({
+	  url: "data.txt",
+	  dataType: "text",
+	  //async: true,
+	  async: false,
+	  success: function(data){
+	    var myArray = data.split("\n");
+	    for(var i=0;i<myArray.length;i++){
+	      $("#start").before('<button id="myButton' + i + '">' + myArray[i] + '</button><br>');
+	    }
+	  }
+	})
+	// イベントハンドラ
+        $("button").on("click",add_string);
+        $("#Copy_button").on("click",myCopy);
+
+	function add_string(){
+	  var str = $("#text").val();
+	  $("#text").val($(this).html() + "\n" + str);
+	}
+
+	function myCopy(){
+	  //var str = $("#text").val();
+	  $("#text").select();
+	  document.execCommand("copy");
+	}
+});
+</script>
+</head>
+<body>
+<div class="container">
+<div class="row">
+<div class="one-half column">
+<form>
+<textarea id="text" cols=40 rows=4>
+</textarea>
+</form>
+<button id="Copy_button">Copy_button</button>
+</div>
+<div class="one-half column">
+<span id="start">button</span>
+<button id="button2">button2</button>
+<!--
+-->
+</div>
+</div>
+</div>
+</body>
+</html>
